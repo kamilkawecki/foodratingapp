@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -17,7 +18,7 @@ export default function Header() {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <header className="flex items-center justify-between px-10 py-8 border-b border-lightgray shadow-sm bg-white sticky top-0 z-50">
+    <header className="text-black flex items-center justify-between px-10 py-8 border-b border-lightgray shadow-sm bg-white sticky top-0 z-50 h-[100px]">
       {/* Logo */}
       <div className="text-xl font-bold">
         <Link href="/">
@@ -50,7 +51,7 @@ export default function Header() {
 
       {/* Mobile Menu Toggle */}
       <button onClick={() => setMenuOpen(true)} className="md:hidden">
-        toggle
+        <Menu className="w-6 h-6 text-foreground" />
       </button>
 
       {/* Mobile Menu Panel */}
@@ -59,9 +60,10 @@ export default function Header() {
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex justify-between items-center p-4 border-b">
-          <span className="text-lg font-semibold">Menu</span>
-          <button onClick={() => setMenuOpen(false)}>Close</button>
+        <div className="flex justify-end items-center py-4 px-10 border-b border-lightgray shadow-sm h-[100px]">
+          <button onClick={() => setMenuOpen(false)}>
+            <X className="w-6 h-6 text-foreground" />
+          </button>
         </div>
 
         <nav className="flex flex-col p-4 gap-4">

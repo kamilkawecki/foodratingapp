@@ -21,20 +21,18 @@ body {
 }
 
 /* Typography */
-h1 {
-  @apply text-4xl font-heading font-semibold mb-4;
+.heading-1 {
+  @apply text-4xl font-heading font-semibold;
 }
 
-h2 {
-  @apply text-3xl font-heading font-semibold mb-3;
+.heading-2 {
+  @apply text-3xl font-heading font-semibold;
 }
 
-h3 {
-  @apply text-2xl font-heading font-semibold mb-2;
+.heading-3 {
+  @apply text-2xl font-heading font-semibold;
 }
 
-h4,
-h5,
-h6 {
+.heading-4 {
   @apply font-heading font-semibold;
 }
