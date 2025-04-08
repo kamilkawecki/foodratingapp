@@ -2,7 +2,10 @@ import Image from "next/image";
 import { mockDishes } from "@/lib/mockDishes";
 import { DEFAULT_DISH_IMAGE } from "@/lib/constants";
 
-export default function DishPage({ params }: { params: { id: string } }) {
+export default async function DishPage(props: {
+  params: Promise<{ id: string }>;
+}) {
+  const params = await props.params;
   const dish = mockDishes.find((d) => d.id === params.id);
 
   if (!dish) return <div className="p-6 text-gray-600">Dish not found</div>;
