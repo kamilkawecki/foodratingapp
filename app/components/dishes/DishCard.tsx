@@ -27,7 +27,9 @@ export default function DishCard({ name, categories, image, id }: Dish) {
             height={20}
             priority
           />
-          <p className="text-sm text-gray-600">{categories.join(", ")}</p>
+          <p className="text-sm text-gray-600">
+            {categories.map((c) => c.name).join(", ")}
+          </p>
         </div>
       </div>
     </Link>
