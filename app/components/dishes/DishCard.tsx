@@ -3,7 +3,7 @@ import Link from "next/link";
 import { DEFAULT_DISH_IMAGE } from "@/lib/constants";
 import { Dish } from "@/types/dish";
 
-export default function DishCard({ name, category, image, id }: Dish) {
+export default function DishCard({ name, categories, image, id }: Dish) {
   return (
     <Link href={`/dishes/${id}`}>
       <div className="group overflow-hidden rounded-2xl bg-gradient-to-t from-primary to-transparent p-4">
@@ -27,7 +27,7 @@ export default function DishCard({ name, category, image, id }: Dish) {
             height={20}
             priority
           />
-          <p className="text-sm text-gray-600">{category}</p>
+          <p className="text-sm text-gray-600">{categories.join(", ")}</p>
         </div>
       </div>
     </Link>
