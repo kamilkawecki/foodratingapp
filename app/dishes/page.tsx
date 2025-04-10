@@ -46,12 +46,16 @@ export default function AllDishesPage() {
         );
 
   return (
-    <div className="flex min-h-screen relative">
+    <div className="flex relative">
       <aside
         className={`z-40 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
         fixed top-[100px] left-0 h-full
         md:sticky md:top-[100px] md:h-fit md:self-start md:shadow-none
-        ${showSidebar ? "translate-x-0" : "-translate-x-full"}
+        ${
+          showSidebar
+            ? "translate-x-0 pointer-events-auto"
+            : "-translate-x-full pointer-events-none"
+        }
         md:translate-x-0`}
       >
         <div className="p-6 flex items-center justify-between md:hidden">
@@ -82,10 +86,17 @@ export default function AllDishesPage() {
         </div>
       </aside>
 
+      {showSidebar && (
+        <div
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+          onClick={() => setShowSidebar(false)}
+        />
+      )}
+
       <main className="flex-1 p-6">
         <button
           onClick={() => setShowSidebar(true)}
-          className="md:hidden mb-4 bg-accent text-white px-4 py-2 rounded-lg"
+          className="md:hidden mb-4 button"
         >
           Filters
         </button>
