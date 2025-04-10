@@ -2,6 +2,7 @@ import Image from "next/image";
 import { DEFAULT_DISH_IMAGE } from "@/lib/constants";
 import { PrismaClient } from "@/lib/generated/prisma";
 import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 const prisma = new PrismaClient();
 
@@ -21,7 +22,13 @@ export default async function DishPage(props: {
   if (!dish) return <div className="p-6 text-gray-600">Dish not found</div>;
 
   return (
-    <div className="mx-auto p-6">
+    <div className="p-6">
+      <Link
+        href={`/dishes/${params.id}/edit`}
+        className="inline-block text-sm text-accent hover:underline"
+      >
+        Edit Dish
+      </Link>
       <h1 className="text-3xl font-heading text-black mb-2">{dish.name}</h1>
       <p className="text-sm text-gray-500 mb-4">
         {dish.categories.map((c) => c.name).join(", ")}
