@@ -21,17 +21,15 @@ export default function Header() {
   return (
     <header className="text-black flex items-center justify-between px-10 py-8 border-b border-lightgray shadow-sm bg-white sticky top-0 z-50 h-[100px]">
       {/* Logo */}
-      <div className="text-xl font-bold">
-        <Link href="/">
-          <Image
-            src="/logo.svg"
-            alt="FoodRating Logo"
-            width={140}
-            height={40}
-            priority
-          />
-        </Link>
-      </div>
+      <Link href="/">
+        <Image
+          src="/logo.svg"
+          alt="FoodRating Logo"
+          width={140}
+          height={40}
+          priority
+        />
+      </Link>
 
       {/* Desktop Nav */}
       <nav className="hidden md:flex gap-6">
