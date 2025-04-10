@@ -1,9 +1,8 @@
-import { Category } from "./category";
+import type {
+  Dish as PrismaDish,
+  Category as PrismaCategory,
+} from "@/lib/generated/prisma";
 
-export type Dish = {
-  id: string;
-  name: string;
-  categories: Category[];
-  description: string;
-  image?: string;
+export type DishWithCategories = PrismaDish & {
+  categories: PrismaCategory[];
 };

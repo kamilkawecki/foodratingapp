@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import DishCard from "./DishCard";
-import { Dish } from "@/types/dish";
+import { DishWithCategories } from "@/types/dish";
 
 export default function DishList() {
   const [dishes, setDishes] = useState([]);
@@ -19,7 +19,7 @@ export default function DishList() {
 
   return (
     <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-      {dishes.map((dish: Dish) => (
+      {dishes.map((dish: DishWithCategories) => (
         <DishCard key={dish.id} {...dish} />
       ))}
     </div>

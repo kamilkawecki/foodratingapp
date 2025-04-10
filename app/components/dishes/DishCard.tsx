@@ -1,9 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DEFAULT_DISH_IMAGE } from "@/lib/constants";
-import { Dish } from "@/types/dish";
+import { DishWithCategories } from "@/types/dish";
 
-export default function DishCard({ name, categories, image, id }: Dish) {
+export default function DishCard({
+  name,
+  categories,
+  image,
+  id,
+}: DishWithCategories) {
   return (
     <Link href={`/dishes/${id}`}>
       <div className="group overflow-hidden rounded-2xl bg-gradient-to-t from-primary to-transparent p-4">

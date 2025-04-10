@@ -4,25 +4,28 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
+import { DishWithCategories } from "@/types/dish";
+import { Category } from "@/lib/generated/prisma";
+
+export type DishFormType = {
+  name: string;
+  description: string;
+  image?: string;
+  recipeUrl?: string;
+  categories: string[];
+};
 
 type DishFormProps = {
   mode: "new" | "edit";
-  dish?: {
-    id: string;
-    name: string;
-    description: string;
-    recipeUrl?: string | null;
-    image?: string | null;
-    categories: { name: string }[];
-  };
-  allCategories: { name: string }[];
+  dish?: DishWithCategories;
+  allCategories: Category[];
 };
 
 export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<DishFormType>({
     name: dish?.name || "",
     description: dish?.description || "",
     recipeUrl: dish?.recipeUrl || "",

@@ -13,9 +13,7 @@ export default async function DishPage(props: {
   const dish = await prisma.dish.findUnique({
     where: { id: params.id },
     include: {
-      categories: {
-        select: { name: true },
-      },
+      categories: true,
     },
   });
 

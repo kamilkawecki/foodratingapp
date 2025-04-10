@@ -1,5 +1,6 @@
 import DishForm from "@/app/components/dishes/DishForm";
 import { PrismaClient } from "@/lib/generated/prisma";
+import { DishWithCategories } from "@/types/dish";
 
 const prisma = new PrismaClient();
 
@@ -8,12 +9,10 @@ export default async function EditDishPage({
 }: {
   params: { id: string };
 }) {
-  const dish = await prisma.dish.findUnique({
+  const dish: DishWithCategories | null = await prisma.dish.findUnique({
     where: { id: params.id },
     include: {
-      categories: {
-        select: { name: true },
-      },
+      categories: true,
     },
   });
 
@@ -21,9 +20,7 @@ export default async function EditDishPage({
     return <div className="p-6 text-gray-600">Dish not found</div>;
   }
 
-  const allCategories = await prisma.category.findMany({
-    select: { name: true },
-  });
+  const allCategories = await prisma.category.findMany();
 
   return (
     <div className="max-w-2xl mx-auto p-6">
