@@ -4,7 +4,10 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function PUT(req: Request, props: { params: Promise<{ id: string }> }) {
+export async function PUT(
+  req: Request,
+  props: { params: Promise<{ id: string }> }
+) {
   const params = await props.params;
   const { name, description, image, recipeUrl, categories } = await req.json();
 
@@ -44,4 +47,20 @@ export async function PUT(req: Request, props: { params: Promise<{ id: string }>
   });
 
   return NextResponse.json(updated);
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    await prisma.dish.delete({
+      where: { id: params.id },
+    });
+
+    return new NextResponse(null, { status: 204 });
+  } catch (err) {
+    console.error("Delete error:", err);
+    return NextResponse.json({ error: "Failed to delete" }, { status: 500 });
+  }
 }

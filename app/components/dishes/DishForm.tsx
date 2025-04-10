@@ -169,11 +169,7 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
             placeholder="Add category"
             className="flex-1 border border-gray-300 rounded-lg p-2"
           />
-          <button
-            type="button"
-            onClick={handleAddCategory}
-            className="px-4 py-2 bg-accent text-white rounded-lg"
-          >
+          <button type="button" onClick={handleAddCategory} className="button">
             Add
           </button>
         </div>
@@ -250,21 +246,45 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
           type="button"
           disabled={!!form.image}
           onClick={handleImageUpload}
-          className="h-[48px] px-4 py-2 bg-accent text-white rounded-lg hover:bg-opacity-90 transition disabled:opacity-50"
+          className="h-[48px] button"
         >
           Upload
         </button>
       </div>
 
-      <button
-        type="submit"
-        className="bg-accent text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition"
-      >
-        {mode === "new" ? "Save Dish" : "Update Dish"}
-      </button>
+      <div className="flex justify-between">
+        <button type="submit" className="button">
+          {mode === "edit" ? "Update Dish" : "Save Dish"}
+        </button>
+
+        {mode === "edit" && dish && (
+          <button
+            type="button"
+            onClick={async () => {
+              const confirmDelete = confirm(
+                "Are you sure you want to delete this dish?"
+              );
+              if (!confirmDelete) return;
+
+              const res = await fetch(`/api/dishes/${dish.id}`, {
+                method: "DELETE",
+              });
+
+              if (res.ok) {
+                router.push("/");
+              } else {
+                setError("Failed to delete dish.");
+              }
+            }}
+            className="button danger"
+          >
+            Delete Dish
+          </button>
+        )}
+      </div>
 
       {status && <p className="text-sm mt-2 text-green-600">{status}</p>}
-      {error && <p className="text-sm mt-2 text-red-600">{error}</p>}
+      {error && <p className="text-sm mt-2 text-danger">{error}</p>}
     </form>
   );
 }

@@ -9,6 +9,7 @@
   --color-primary: #e7fafe;
   --color-secondary: #ff6363;
   --color-accent: #ff7426;
+  --color-danger: #e22e2e;
   --color-lightgray: #e6e6e6;
 
   --font-body: "Inter", sans-serif;
@@ -35,4 +36,12 @@ body {
 
 .heading-4 {
   @apply font-heading font-semibold;
+}
+
+/* Buttons */
+.button {
+  @apply bg-accent text-white px-6 py-3 rounded-lg hover:bg-accent/90 transition cursor-pointer;
+  &.danger {
+    @apply bg-danger hover:bg-danger/90;
+  }
 }
