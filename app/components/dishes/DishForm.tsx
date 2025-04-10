@@ -100,7 +100,6 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
       .getPublicUrl(fileName);
 
     setForm((prev) => ({ ...prev, image: publicUrlData.publicUrl }));
-    setStatus("✅ Image uploaded");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -124,7 +123,7 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
 
     const data = await res.json();
     setStatus("Dish saved! Redirecting...");
-    router.push(`/dishes/${data.id}`);
+    router.push(`/dishes/${data.slug}`);
   };
 
   return (

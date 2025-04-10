@@ -7,10 +7,10 @@ const prisma = new PrismaClient();
 export default async function EditDishPage({
   params,
 }: {
-  params: { id: string };
+  params: { slug: string };
 }) {
   const dish: DishWithCategories | null = await prisma.dish.findUnique({
-    where: { id: params.id },
+    where: { slug: params.slug },
     include: {
       categories: true,
     },

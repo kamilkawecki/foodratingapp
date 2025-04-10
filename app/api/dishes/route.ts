@@ -1,4 +1,5 @@
 import { PrismaClient } from "@/lib/generated/prisma";
+import { slugify } from "@/lib/slugify";
 import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
@@ -12,9 +13,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
   }
 
+  const baseSlug = slugify(name);
+  let slug = baseSlug;
+  let suffix = 1;
+  while (await prisma.dish.findUnique({ where: { slug } })) {
+    slug = `${baseSlug}-${suffix++}`;
+  }
+
   const dish = await prisma.dish.create({
     data: {
       name,
+      slug,
       description,
       image,
       recipeUrl,
@@ -36,9 +45,7 @@ export async function POST(req: Request) {
 export async function GET() {
   const dishes = await prisma.dish.findMany({
     include: {
-      categories: {
-        select: { name: true },
-      },
+      categories: true,
     },
     orderBy: {
       createdAt: "desc",

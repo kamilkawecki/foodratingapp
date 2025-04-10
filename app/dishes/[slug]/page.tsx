@@ -6,12 +6,13 @@ import Link from "next/link";
 
 const prisma = new PrismaClient();
 
-export default async function DishPage(props: {
-  params: Promise<{ id: string }>;
+export default async function DishPage({
+  params,
+}: {
+  params: { slug: string };
 }) {
-  const params = await props.params;
   const dish = await prisma.dish.findUnique({
-    where: { id: params.id },
+    where: { slug: params.slug },
     include: {
       categories: true,
     },
@@ -22,7 +23,7 @@ export default async function DishPage(props: {
   return (
     <div className="p-6">
       <Link
-        href={`/dishes/${params.id}/edit`}
+        href={`/dishes/${params.slug}/edit`}
         className="inline-block text-sm text-accent hover:underline"
       >
         Edit Dish

@@ -7,10 +7,10 @@ export default function DishCard({
   name,
   categories,
   image,
-  id,
+  slug,
 }: DishWithCategories) {
   return (
-    <Link href={`/dishes/${id}`}>
+    <Link href={`/dishes/${slug}`}>
       <div className="group overflow-hidden rounded-2xl bg-gradient-to-t from-primary to-transparent p-4">
         <div className="overflow-hidden rounded-2xl aspect-square">
           <Image
