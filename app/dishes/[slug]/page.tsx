@@ -6,11 +6,12 @@ import Link from "next/link";
 
 const prisma = new PrismaClient();
 
-export default async function DishPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function DishPage(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+) {
+  const params = await props.params;
   const dish = await prisma.dish.findUnique({
     where: { slug: params.slug },
     include: {

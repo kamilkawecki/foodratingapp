@@ -4,10 +4,8 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(req: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const { name, description, image, recipeUrl, categories } = await req.json();
 
   const baseSlug = slugify(name);
