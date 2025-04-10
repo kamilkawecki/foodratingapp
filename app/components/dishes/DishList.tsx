@@ -1,25 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import DishCard from "./DishCard";
 import { DishWithCategories } from "@/types/dish";
 
-export default function DishList() {
-  const [dishes, setDishes] = useState([]);
+type DishListProps = {
+  dishes: DishWithCategories[];
+};
 
-  useEffect(() => {
-    const fetchDishes = async () => {
-      const res = await fetch("/api/dishes");
-      const data = await res.json();
-      setDishes(data);
-    };
-
-    fetchDishes();
-  }, []);
+export default function DishList({ dishes }: DishListProps) {
+  if (dishes.length === 0) {
+    return <p className="text-gray-600">No dishes match your filters.</p>;
+  }
 
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-      {dishes.map((dish: DishWithCategories) => (
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      {dishes.map((dish) => (
         <DishCard key={dish.id} {...dish} />
       ))}
     </div>
