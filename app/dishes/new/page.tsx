@@ -1,16 +1,20 @@
 "use client";
 
+import { supabase } from "@/lib/supabase";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function NewDishPage() {
   const [categories, setCategories] = useState<string[]>([]);
   const [newCategory, setNewCategory] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const [form, setForm] = useState({
     name: "",
     categories: [] as string[],
     description: "",
     image: "",
+    recipeUrl: "",
   });
 
   useEffect(() => {
@@ -69,6 +73,37 @@ export default function NewDishPage() {
       console.error(err);
       alert("Error submitting dish");
     }
+  };
+
+  const handleImageUpload = async () => {
+    if (!imageFile) {
+      alert("Please select an image file first.");
+      return;
+    }
+
+    if (form.image) {
+      alert("Image already uploaded.");
+      return;
+    }
+
+    const fileName = `${Date.now()}-${imageFile.name}`;
+
+    const { data, error } = await supabase.storage
+      .from("dish-images")
+      .upload(fileName, imageFile);
+
+    if (error) {
+      console.error("Image upload failed:", error);
+      alert("Image upload failed.");
+      return;
+    }
+
+    const { data: publicUrlData } = supabase.storage
+      .from("dish-images")
+      .getPublicUrl(fileName);
+
+    setForm((prev) => ({ ...prev, image: publicUrlData.publicUrl }));
+    alert("Image uploaded successfully!");
   };
 
   return (
@@ -130,6 +165,17 @@ export default function NewDishPage() {
           </button>
         </div>
 
+        <input
+          type="url"
+          name="recipeUrl"
+          placeholder="Recipe Link (optional)"
+          className="w-full border border-gray-300 rounded-lg p-3"
+          value={form.recipeUrl}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, recipeUrl: e.target.value }))
+          }
+        />
+
         <textarea
           name="description"
           placeholder="Description"
@@ -139,14 +185,60 @@ export default function NewDishPage() {
           required
         />
 
-        <input
-          type="text"
-          name="image"
-          placeholder="Image URL (optional)"
-          className="w-full border border-gray-300 rounded-lg p-3"
-          value={form.image}
-          onChange={handleChange}
-        />
+        {form.image && (
+          <div className="rounded-lg border border-gray-200 overflow-hidden">
+            <Image
+              src={form.image}
+              alt="Uploaded"
+              width={800}
+              height={600}
+              className="w-full h-auto object-cover"
+            />
+            <div className="flex justify-between py-2 px-4">
+              <p className="text-sm text-gray-500 mt-1 text-center">
+                Uploaded image preview
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setForm((prev) => ({ ...prev, image: "" }));
+                  setImageFile(null);
+                }}
+                className="mt-2 text-sm text-red-600 hover:underline cursor-pointer"
+              >
+                Remove image
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="flex gap-2 items-center">
+          <label
+            htmlFor="dish-image"
+            className="flex-1 cursor-pointer border border-gray-300 rounded-lg px-4 py-3 text-gray-600 hover:bg-gray-50 transition text-center"
+          >
+            {imageFile ? imageFile.name : "Choose Image"}
+          </label>
+
+          <input
+            id="dish-image"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              if (e.target.files?.[0]) setImageFile(e.target.files[0]);
+            }}
+            className="hidden"
+          />
+
+          <button
+            type="button"
+            disabled={!!form.image}
+            onClick={handleImageUpload}
+            className="h-[48px] px-4 py-2 bg-accent text-white rounded-lg hover:bg-opacity-90 transition disabled:opacity-50"
+          >
+            Upload
+          </button>
+        </div>
 
         <button
           type="submit"

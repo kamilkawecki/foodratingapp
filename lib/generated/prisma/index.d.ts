@@ -1034,6 +1034,7 @@ export namespace Prisma {
   export type DishMinAggregateOutputType = {
     id: string | null
     name: string | null
+    recipeUrl: string | null
     description: string | null
     image: string | null
     createdAt: Date | null
@@ -1042,6 +1043,7 @@ export namespace Prisma {
   export type DishMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    recipeUrl: string | null
     description: string | null
     image: string | null
     createdAt: Date | null
@@ -1050,6 +1052,7 @@ export namespace Prisma {
   export type DishCountAggregateOutputType = {
     id: number
     name: number
+    recipeUrl: number
     description: number
     image: number
     createdAt: number
@@ -1060,6 +1063,7 @@ export namespace Prisma {
   export type DishMinAggregateInputType = {
     id?: true
     name?: true
+    recipeUrl?: true
     description?: true
     image?: true
     createdAt?: true
@@ -1068,6 +1072,7 @@ export namespace Prisma {
   export type DishMaxAggregateInputType = {
     id?: true
     name?: true
+    recipeUrl?: true
     description?: true
     image?: true
     createdAt?: true
@@ -1076,6 +1081,7 @@ export namespace Prisma {
   export type DishCountAggregateInputType = {
     id?: true
     name?: true
+    recipeUrl?: true
     description?: true
     image?: true
     createdAt?: true
@@ -1157,6 +1163,7 @@ export namespace Prisma {
   export type DishGroupByOutputType = {
     id: string
     name: string
+    recipeUrl: string | null
     description: string
     image: string | null
     createdAt: Date
@@ -1182,6 +1189,7 @@ export namespace Prisma {
   export type DishSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    recipeUrl?: boolean
     description?: boolean
     image?: boolean
     createdAt?: boolean
@@ -1192,6 +1200,7 @@ export namespace Prisma {
   export type DishSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    recipeUrl?: boolean
     description?: boolean
     image?: boolean
     createdAt?: boolean
@@ -1200,6 +1209,7 @@ export namespace Prisma {
   export type DishSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    recipeUrl?: boolean
     description?: boolean
     image?: boolean
     createdAt?: boolean
@@ -1208,12 +1218,13 @@ export namespace Prisma {
   export type DishSelectScalar = {
     id?: boolean
     name?: boolean
+    recipeUrl?: boolean
     description?: boolean
     image?: boolean
     createdAt?: boolean
   }
 
-  export type DishOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "image" | "createdAt", ExtArgs["result"]["dish"]>
+  export type DishOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "recipeUrl" | "description" | "image" | "createdAt", ExtArgs["result"]["dish"]>
   export type DishInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categories?: boolean | Dish$categoriesArgs<ExtArgs>
     _count?: boolean | DishCountOutputTypeDefaultArgs<ExtArgs>
@@ -1229,6 +1240,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      recipeUrl: string | null
       description: string
       image: string | null
       createdAt: Date
@@ -1658,6 +1670,7 @@ export namespace Prisma {
   interface DishFieldRefs {
     readonly id: FieldRef<"Dish", 'String'>
     readonly name: FieldRef<"Dish", 'String'>
+    readonly recipeUrl: FieldRef<"Dish", 'String'>
     readonly description: FieldRef<"Dish", 'String'>
     readonly image: FieldRef<"Dish", 'String'>
     readonly createdAt: FieldRef<"Dish", 'DateTime'>
@@ -3139,6 +3152,7 @@ export namespace Prisma {
   export const DishScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    recipeUrl: 'recipeUrl',
     description: 'description',
     image: 'image',
     createdAt: 'createdAt'
@@ -3235,6 +3249,7 @@ export namespace Prisma {
     NOT?: DishWhereInput | DishWhereInput[]
     id?: StringFilter<"Dish"> | string
     name?: StringFilter<"Dish"> | string
+    recipeUrl?: StringNullableFilter<"Dish"> | string | null
     description?: StringFilter<"Dish"> | string
     image?: StringNullableFilter<"Dish"> | string | null
     createdAt?: DateTimeFilter<"Dish"> | Date | string
@@ -3244,6 +3259,7 @@ export namespace Prisma {
   export type DishOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    recipeUrl?: SortOrderInput | SortOrder
     description?: SortOrder
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -3256,6 +3272,7 @@ export namespace Prisma {
     OR?: DishWhereInput[]
     NOT?: DishWhereInput | DishWhereInput[]
     name?: StringFilter<"Dish"> | string
+    recipeUrl?: StringNullableFilter<"Dish"> | string | null
     description?: StringFilter<"Dish"> | string
     image?: StringNullableFilter<"Dish"> | string | null
     createdAt?: DateTimeFilter<"Dish"> | Date | string
@@ -3265,6 +3282,7 @@ export namespace Prisma {
   export type DishOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    recipeUrl?: SortOrderInput | SortOrder
     description?: SortOrder
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -3279,6 +3297,7 @@ export namespace Prisma {
     NOT?: DishScalarWhereWithAggregatesInput | DishScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Dish"> | string
     name?: StringWithAggregatesFilter<"Dish"> | string
+    recipeUrl?: StringNullableWithAggregatesFilter<"Dish"> | string | null
     description?: StringWithAggregatesFilter<"Dish"> | string
     image?: StringNullableWithAggregatesFilter<"Dish"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Dish"> | Date | string
@@ -3327,6 +3346,7 @@ export namespace Prisma {
   export type DishCreateInput = {
     id?: string
     name: string
+    recipeUrl?: string | null
     description: string
     image?: string | null
     createdAt?: Date | string
@@ -3336,6 +3356,7 @@ export namespace Prisma {
   export type DishUncheckedCreateInput = {
     id?: string
     name: string
+    recipeUrl?: string | null
     description: string
     image?: string | null
     createdAt?: Date | string
@@ -3345,6 +3366,7 @@ export namespace Prisma {
   export type DishUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3354,6 +3376,7 @@ export namespace Prisma {
   export type DishUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3363,6 +3386,7 @@ export namespace Prisma {
   export type DishCreateManyInput = {
     id?: string
     name: string
+    recipeUrl?: string | null
     description: string
     image?: string | null
     createdAt?: Date | string
@@ -3371,6 +3395,7 @@ export namespace Prisma {
   export type DishUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3379,6 +3404,7 @@ export namespace Prisma {
   export type DishUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3482,6 +3508,7 @@ export namespace Prisma {
   export type DishCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    recipeUrl?: SortOrder
     description?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -3490,6 +3517,7 @@ export namespace Prisma {
   export type DishMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    recipeUrl?: SortOrder
     description?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -3498,6 +3526,7 @@ export namespace Prisma {
   export type DishMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    recipeUrl?: SortOrder
     description?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
@@ -3817,6 +3846,7 @@ export namespace Prisma {
   export type DishCreateWithoutCategoriesInput = {
     id?: string
     name: string
+    recipeUrl?: string | null
     description: string
     image?: string | null
     createdAt?: Date | string
@@ -3825,6 +3855,7 @@ export namespace Prisma {
   export type DishUncheckedCreateWithoutCategoriesInput = {
     id?: string
     name: string
+    recipeUrl?: string | null
     description: string
     image?: string | null
     createdAt?: Date | string
@@ -3857,6 +3888,7 @@ export namespace Prisma {
     NOT?: DishScalarWhereInput | DishScalarWhereInput[]
     id?: StringFilter<"Dish"> | string
     name?: StringFilter<"Dish"> | string
+    recipeUrl?: StringNullableFilter<"Dish"> | string | null
     description?: StringFilter<"Dish"> | string
     image?: StringNullableFilter<"Dish"> | string | null
     createdAt?: DateTimeFilter<"Dish"> | Date | string
@@ -3880,6 +3912,7 @@ export namespace Prisma {
   export type DishUpdateWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3888,6 +3921,7 @@ export namespace Prisma {
   export type DishUncheckedUpdateWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3896,6 +3930,7 @@ export namespace Prisma {
   export type DishUncheckedUpdateManyWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

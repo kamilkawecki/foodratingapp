@@ -17,6 +17,7 @@ datasource db {
 model Dish {
   id          String     @id @default(uuid())
   name        String
+  recipeUrl   String?
   description String
   image       String?
   categories  Category[] @relation("DishCategories")

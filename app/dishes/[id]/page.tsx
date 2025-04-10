@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { DEFAULT_DISH_IMAGE } from "@/lib/constants";
 import { PrismaClient } from "@/lib/generated/prisma";
+import { ExternalLink } from "lucide-react";
 
 const prisma = new PrismaClient();
 
@@ -25,6 +26,17 @@ export default async function DishPage(props: {
       <p className="text-sm text-gray-500 mb-4">
         {dish.categories.map((c) => c.name).join(", ")}
       </p>
+      {dish.recipeUrl && (
+        <a
+          href={dish.recipeUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition mb-4"
+        >
+          View Recipe
+          <ExternalLink size={16} />
+        </a>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-x-6">
         <div className="col-span-2 aspect-[2/1] overflow-hidden rounded-2xl">
           <Image

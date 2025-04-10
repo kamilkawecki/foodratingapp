@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const { name, description, image, categories } = body;
+  const { name, description, image, categories, recipeUrl } = body;
 
   if (!name || !description || !Array.isArray(categories)) {
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
@@ -17,6 +17,7 @@ export async function POST(req: Request) {
       name,
       description,
       image,
+      recipeUrl,
       categories: {
         connectOrCreate: categories.map((catName: string) => ({
           where: { name: catName },
