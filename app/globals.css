@@ -44,4 +44,7 @@ body {
   &.danger {
     @apply bg-danger hover:bg-danger/90;
   }
+  &:disabled {
+    @apply opacity-50;
+  }
 }

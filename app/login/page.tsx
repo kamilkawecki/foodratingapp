@@ -15,6 +15,7 @@ export default function LoginPage() {
   const [displayName, setDisplayName] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -56,7 +57,6 @@ export default function LoginPage() {
       password,
     });
     if (error) setError(error.message);
-    else router.push("/");
   };
 
   const handleLogout = async () => {
@@ -68,6 +68,10 @@ export default function LoginPage() {
     if (!user) return;
     if (!displayName.trim()) return;
 
+    setSaving(true);
+    setError(null);
+    setStatus(null);
+
     // Check if display name is unique
     const { data: existing, error: checkError } = await supabase
       .from("profiles")
@@ -77,11 +81,13 @@ export default function LoginPage() {
 
     if (checkError) {
       setError("Failed to check display name.");
+      setSaving(false);
       return;
     }
 
     if (existing?.length > 0) {
       setError("This display name is already taken.");
+      setSaving(false);
       return;
     }
 
@@ -89,8 +95,13 @@ export default function LoginPage() {
       .from("profiles")
       .upsert({ id: user.id, display_name: displayName });
 
-    if (error) setError("Failed to update display name.");
-    else setStatus("Display name updated!");
+    if (error) {
+      setError("Failed to update display name.");
+    } else {
+      setStatus("Display name updated!");
+    }
+
+    setSaving(false);
   };
 
   if (!user) {
@@ -139,8 +150,12 @@ export default function LoginPage() {
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
         />
-        <button className="button" onClick={handleSetDisplayName}>
-          Save Display Name
+        <button
+          className="button"
+          onClick={handleSetDisplayName}
+          disabled={saving}
+        >
+          {saving ? "Saving..." : "Save Display Name"}
         </button>
         {status && <p className="text-green-600 text-sm">{status}</p>}
         {error && <p className="text-red-600 text-sm">{error}</p>}
