@@ -3,13 +3,17 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useUser } from "@/lib/hooks/useUser";
+import { getAuthLabel } from "@/lib/utils/nav";
+import type { NavLink } from "@/types/nav";
 
-const MobileMenu = ({
-  navLinks,
-}: {
-  navLinks: { href: string; label: string }[];
-}) => {
+export default function MobileMenu({ navLinks }: { navLinks: NavLink[] }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, displayName } = useUser();
+  const pathname = usePathname();
+
+  const isActive = (href: string) => pathname === href;
 
   return (
     <>
@@ -38,17 +42,31 @@ const MobileMenu = ({
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="transition hover:text-accent"
+                  className={`transition ${
+                    isActive(link.href)
+                      ? "text-accent font-semibold"
+                      : "hover:text-accent"
+                  }`}
                 >
                   {link.label}
                 </Link>
               ))}
+
+              <Link
+                href="/login"
+                onClick={() => setMenuOpen(false)}
+                className={`transition ${
+                  isActive("/login")
+                    ? "text-accent font-semibold"
+                    : "hover:text-accent"
+                }`}
+              >
+                {getAuthLabel(displayName, user?.email)}
+              </Link>
             </nav>
           </div>
         </div>
       )}
     </>
   );
-};
-
-export default MobileMenu;
+}

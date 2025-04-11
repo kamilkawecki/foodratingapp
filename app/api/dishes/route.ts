@@ -1,5 +1,5 @@
 import { PrismaClient } from "@/lib/generated/prisma";
-import { slugify } from "@/lib/slugify";
+import { slugify } from "@/lib/utils/slugify";
 import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();

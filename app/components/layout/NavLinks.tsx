@@ -3,22 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/lib/hooks/useUser";
+import { NavLink } from "@/types/nav";
+import { getAuthLabel } from "@/lib/utils/nav";
 
-const baseLinks = [
-  { href: "/", label: "Home" },
-  { href: "/dishes", label: "Dishes" },
-  { href: "/dishes/new", label: "Add Dish" },
-];
-
-export default function NavLinks() {
+export default function NavLinks({ navLinks }: { navLinks: NavLink[] }) {
   const pathname = usePathname();
   const { user, displayName } = useUser();
 
   const isActive = (href: string) => pathname === href;
 
   return (
-    <nav className="flex flex-col md:flex-row gap-4 md:gap-6">
-      {baseLinks.map((link) => (
+    <nav className="hidden md:flex flex-col md:flex-row gap-4 md:gap-6">
+      {navLinks.map((link) => (
         <Link
           key={link.href}
           href={link.href}
@@ -38,9 +34,7 @@ export default function NavLinks() {
           isActive("/login") ? "text-accent font-semibold" : "hover:text-accent"
         }`}
       >
-        {displayName === undefined
-          ? "Login"
-          : displayName || user?.email || "Login"}
+        {getAuthLabel(displayName, user?.email)}
       </Link>
     </nav>
   );
