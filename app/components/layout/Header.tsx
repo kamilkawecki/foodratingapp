@@ -3,20 +3,75 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/dishes", label: "Dishes" },
-  { href: "/dishes/new", label: "Add dish" },
-];
+import { supabase } from "@/lib/supabase";
 
 export default function Header() {
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userDisplayName, setUserDisplayName] = useState<
+    string | null | undefined
+  >(undefined);
 
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/dishes", label: "Dishes" },
+    { href: "/dishes/new", label: "Add dish" },
+    {
+      href: "/login",
+      label:
+        userDisplayName === undefined
+          ? "Login"
+          : userDisplayName || userEmail || "Login",
+    },
+  ];
+  const [menuOpen, setMenuOpen] = useState(false);
   const isActive = (href: string) => pathname === href;
+
+  useEffect(() => {
+    supabase.auth.getSession().then(async ({ data }) => {
+      const user = data.session?.user;
+      setUserEmail(user?.email ?? null);
+
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("display_name")
+          .eq("id", user.id)
+          .single();
+
+        if (profile?.display_name) {
+          setUserDisplayName(profile.display_name);
+        }
+      }
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      const user = session?.user;
+      setUserEmail(user?.email ?? null);
+
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("display_name")
+          .eq("id", user.id)
+          .single();
+
+        if (profile?.display_name) {
+          setUserDisplayName(profile.display_name);
+        } else {
+          setUserDisplayName(null);
+        }
+      } else {
+        setUserDisplayName(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <header className="text-black flex items-center justify-between px-10 py-8 border-b border-lightgray shadow-sm bg-white sticky top-0 z-50 h-[100px]">
