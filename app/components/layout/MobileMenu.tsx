@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useUser } from "@/lib/hooks/useUser";
+import { useUser } from "@/lib/context/UserContext";
 import { getAuthLabel } from "@/lib/utils/nav";
 import type { NavLink } from "@/types/nav";
 

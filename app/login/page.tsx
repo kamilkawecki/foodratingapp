@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@/lib/hooks/useUser";
+import { useUser } from "@/lib/context/UserContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";

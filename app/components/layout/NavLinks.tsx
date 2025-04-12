@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useUser } from "@/lib/hooks/useUser";
+import { useUser } from "@/lib/context/UserContext";
 import { NavLink } from "@/types/nav";
 import { getAuthLabel } from "@/lib/utils/nav";
 
