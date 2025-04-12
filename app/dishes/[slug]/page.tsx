@@ -38,21 +38,23 @@ export default async function DishPage(props: {
         </a>
       )}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-x-6 mb-4">
-        <div className="col-span-2 aspect-[2/1] overflow-hidden rounded-2xl">
+        <div className="md:col-span-2 aspect-square md:aspect-[2/1] rounded-2xl">
           <Image
             src={dish.image || DEFAULT_DISH_IMAGE}
             alt={dish.name}
             width={800}
             height={800}
-            className="w-full object-cover rounded-2xl mb-6"
+            className="w-full h-full object-cover rounded-2xl"
           />
         </div>
-        <div className="bg-primary rounded-2xl p-6">
-          <p className="text-gray-700">{dish.ingredients}</p>
+        <div className="bg-primary rounded-2xl p-3 md:p-6">
+          <p className="text-gray-700 whitespace-pre-line">
+            {dish.ingredients}
+          </p>
         </div>
       </div>
       <div>
-        <p className="text-gray-700">{dish.description}</p>
+        <p className="text-gray-700 whitespace-pre-line">{dish.description}</p>
       </div>
     </div>
   );

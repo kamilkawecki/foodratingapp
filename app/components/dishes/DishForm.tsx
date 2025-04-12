@@ -214,7 +214,7 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
             className="w-full h-auto object-cover"
           />
           <div className="flex justify-between py-2 px-4">
-            <p className="text-sm text-gray-500 mt-1 text-center">
+            <p className="text-sm text-gray-500 mt-2 text-center">
               Uploaded image preview
             </p>
             <button
