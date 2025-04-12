@@ -34,7 +34,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         .from("profiles")
         .select("display_name")
         .eq("id", user.id)
-        .single();
+        .maybeSingle();
 
       setDisplayName(profile?.display_name ?? null);
     } else {
@@ -58,7 +58,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
           .from("profiles")
           .select("display_name")
           .eq("id", newUser.id)
-          .single();
+          .maybeSingle();
 
         setDisplayName(profile?.display_name ?? null);
       } else {
