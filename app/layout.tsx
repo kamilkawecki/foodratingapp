@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   title: "Food Rating App",
   description: "Reciepes and Dish Ratings",
   icons: {
-    icon: "/icon.png",
+    icon: [
+      { url: "/icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/icon.png",
   },
 };
 
