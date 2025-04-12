@@ -6,7 +6,7 @@ import { NavLink } from "@/types/nav";
 const navLinks: NavLink[] = [
   { href: "/", label: "Home" },
   { href: "/dishes", label: "Dishes" },
-  { href: "/dishes/new", label: "Add Dish" },
+  { href: "/dishes/new", label: "Add Dish", permission: "user" },
 ];
 
 const Header = () => {

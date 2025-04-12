@@ -14,19 +14,23 @@ export default function NavLinks({ navLinks }: { navLinks: NavLink[] }) {
 
   return (
     <nav className="hidden md:flex flex-col md:flex-row gap-4 md:gap-6">
-      {navLinks.map((link) => (
-        <Link
-          key={link.href}
-          href={link.href}
-          className={`transition ${
-            isActive(link.href)
-              ? "text-accent font-semibold"
-              : "hover:text-accent"
-          }`}
-        >
-          {link.label}
-        </Link>
-      ))}
+      {navLinks
+        .filter(
+          (link) => !link.permission || (link.permission === "user" && user)
+        )
+        .map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className={`transition ${
+              isActive(link.href)
+                ? "text-accent font-semibold"
+                : "hover:text-accent"
+            }`}
+          >
+            {link.label}
+          </Link>
+        ))}
 
       <Link
         href="/login"

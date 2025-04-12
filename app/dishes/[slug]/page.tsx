@@ -2,15 +2,13 @@ import Image from "next/image";
 import { DEFAULT_DISH_IMAGE } from "@/lib/constants";
 import { PrismaClient } from "@/lib/generated/prisma";
 import { ExternalLink } from "lucide-react";
-import Link from "next/link";
+import EditDishButton from "@/app/components/dishes/EditDishButton";
 
 const prisma = new PrismaClient();
 
-export default async function DishPage(
-  props: {
-    params: Promise<{ slug: string }>;
-  }
-) {
+export default async function DishPage(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
   const dish = await prisma.dish.findUnique({
     where: { slug: params.slug },
@@ -23,12 +21,7 @@ export default async function DishPage(
 
   return (
     <div className="p-6">
-      <Link
-        href={`/dishes/${params.slug}/edit`}
-        className="inline-block text-sm text-accent hover:underline"
-      >
-        Edit Dish
-      </Link>
+      <EditDishButton slug={dish.slug} />
       <h1 className="text-3xl font-heading text-black mb-2">{dish.name}</h1>
       <p className="text-sm text-gray-500 mb-4">
         {dish.categories.map((c) => c.name).join(", ")}

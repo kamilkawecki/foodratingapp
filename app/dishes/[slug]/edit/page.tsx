@@ -1,15 +1,26 @@
 import DishForm from "@/app/components/dishes/DishForm";
 import { PrismaClient } from "@/lib/generated/prisma";
 import { DishWithCategories } from "@/types/dish";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
-export default async function EditDishPage(
-  props: {
-    params: Promise<{ slug: string }>;
-  }
-) {
+export default async function EditDishPage(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   const dish: DishWithCategories | null = await prisma.dish.findUnique({
     where: { slug: params.slug },
     include: {

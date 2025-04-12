@@ -37,20 +37,25 @@ export default function MobileMenu({ navLinks }: { navLinks: NavLink[] }) {
             </div>
 
             <nav className="flex flex-col p-4 gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={`transition ${
-                    isActive(link.href)
-                      ? "text-accent font-semibold"
-                      : "hover:text-accent"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks
+                .filter(
+                  (link) =>
+                    !link.permission || (link.permission === "user" && user)
+                )
+                .map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`transition ${
+                      isActive(link.href)
+                        ? "text-accent font-semibold"
+                        : "hover:text-accent"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
 
               <Link
                 href="/login"

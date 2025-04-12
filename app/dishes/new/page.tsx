@@ -1,25 +1,25 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import type { Category } from "@/lib/generated/prisma";
+import { PrismaClient } from "@/lib/generated/prisma";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import DishForm from "@/app/components/dishes/DishForm";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function NewDishPage() {
-  const [allCategories, setAllCategories] = useState<Category[]>([]);
+const prisma = new PrismaClient();
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const res = await fetch("/api/categories");
-      if (res.ok) {
-        const data = await res.json();
-        setAllCategories(data);
-      } else {
-        console.error("Failed to load categories.");
-      }
-    };
+export default async function NewDishPage() {
+  const supabase = createServerComponentClient({ cookies });
 
-    fetchCategories();
-  }, []);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  const allCategories = await prisma.category.findMany({
+    orderBy: { name: "asc" },
+  });
 
   return (
     <div className="max-w-2xl mx-auto p-6">
