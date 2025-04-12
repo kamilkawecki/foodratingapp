@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { PrismaClient } from "@/lib/generated/prisma";
 import NewDishPageClient from "@/app/components/dishes/NewDishPageClient";
 const prisma = new PrismaClient();
