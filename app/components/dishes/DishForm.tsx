@@ -169,7 +169,7 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
             value={newCategory}
             onChange={(e) => setNewCategory(e.target.value)}
             placeholder="Add category"
-            className="flex-1 border border-gray-300 rounded-lg p-2"
+            className="flex-1 border border-gray-300 rounded-lg p-2 min-w-0"
           />
           <button type="button" onClick={handleAddCategory} className="button">
             Add

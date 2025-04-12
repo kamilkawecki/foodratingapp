@@ -11,9 +11,9 @@ export default function AccountPageClient() {
   if (loading) return <Spinner />;
 
   return (
-    <>
+    <div className="max-w-xl w-full mx-auto p-6">
       <h1 className="heading-1 mb-6">{user ? "My Account" : "Login"}</h1>
       {user ? <MyAccount /> : <LoginForm />}
-    </>
+    </div>
   );
 }

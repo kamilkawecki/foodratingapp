@@ -26,10 +26,8 @@ export default function NewDishPageClient({
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-heading font-semibold mb-6">
-        Add a New Dish
-      </h1>
+    <div className="max-w-xl w-full mx-auto p-6">
+      <h1 className="heading-1 mb-6">Add a New Dish</h1>
       <DishForm mode="new" allCategories={allCategories} />
     </div>
   );
