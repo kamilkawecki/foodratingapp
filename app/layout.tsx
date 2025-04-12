@@ -6,6 +6,9 @@ import { UserProvider } from "@/lib/context/UserContext";
 export const metadata: Metadata = {
   title: "Food Rating App",
   description: "Reciepes and Dish Ratings",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
