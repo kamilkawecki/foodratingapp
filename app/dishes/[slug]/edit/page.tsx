@@ -4,11 +4,10 @@ import type { DishWithCategories } from "@/types/dish";
 
 const prisma = new PrismaClient();
 
-export default async function EditDishPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function EditDishPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const params = await props.params;
   const dish: DishWithCategories | null = await prisma.dish.findUnique({
     where: { slug: params.slug },
     include: { categories: true },
