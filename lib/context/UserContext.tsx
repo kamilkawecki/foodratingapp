@@ -44,29 +44,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    refresh(); // handles both initial session and display name
-
-    // Listen to auth state changes (login/logout)
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      const newUser = session?.user ?? null;
-      setUser(newUser);
-
-      if (newUser) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("display_name")
-          .eq("id", newUser.id)
-          .maybeSingle();
-
-        setDisplayName(profile?.display_name ?? null);
-      } else {
-        setDisplayName(null);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    refresh();
   }, []);
 
   const logout = async () => {

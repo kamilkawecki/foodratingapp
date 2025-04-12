@@ -51,7 +51,7 @@ export default function MyAccount() {
       setError("Failed to update display name.");
     } else {
       setStatus("Display name updated!");
-      await refresh(); // refresh user context
+      await refresh();
     }
 
     setSaving(false);
