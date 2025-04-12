@@ -5,27 +5,35 @@ import { DishWithCategories } from "@/types/dish";
 import DishList from "../components/dishes/DishList";
 import { Category } from "@/lib/generated/prisma";
 import { X } from "lucide-react";
+import Spinner from "../components/Spinner";
 
 export default function AllDishesPage() {
   const [dishes, setDishes] = useState<DishWithCategories[]>([]);
+  const [isDishesLoading, setIsDishesLoading] = useState(true);
+  const [isCategoriesLoading, setIsCategoriesLoading] = useState(true);
   const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
   const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
     const fetchDishes = async () => {
+      setIsDishesLoading(true);
       const res = await fetch("/api/dishes");
       if (res.ok) {
         const data = await res.json();
         setDishes(data);
       }
+      setIsDishesLoading(false);
     };
+
     const fetchCategories = async () => {
+      setIsCategoriesLoading(true);
       const res = await fetch("/api/categories");
       if (res.ok) {
         const data = await res.json();
         setAllCategories(data);
       }
+      setIsCategoriesLoading(false);
     };
 
     fetchDishes();
@@ -70,19 +78,24 @@ export default function AllDishesPage() {
 
         <div className="p-6">
           <h3 className="text-md font-bold mb-4">Categories</h3>
-          <div className="space-y-2">
-            {allCategories.map((cat) => (
-              <label key={cat.id} className="block">
-                <input
-                  type="checkbox"
-                  checked={selectedCategoryIds.includes(cat.id)}
-                  onChange={() => toggleCategory(cat.id)}
-                  className="mr-2"
-                />
-                {cat.name}
-              </label>
-            ))}
-          </div>
+
+          {isCategoriesLoading ? (
+            <Spinner />
+          ) : (
+            <div className="space-y-2">
+              {allCategories.map((cat) => (
+                <label key={cat.id} className="block">
+                  <input
+                    type="checkbox"
+                    checked={selectedCategoryIds.includes(cat.id)}
+                    onChange={() => toggleCategory(cat.id)}
+                    className="mr-2"
+                  />
+                  {cat.name}
+                </label>
+              ))}
+            </div>
+          )}
         </div>
       </aside>
 
@@ -101,7 +114,7 @@ export default function AllDishesPage() {
           Filters
         </button>
 
-        <DishList dishes={filteredDishes} />
+        {isDishesLoading ? <Spinner /> : <DishList dishes={filteredDishes} />}
       </main>
     </div>
   );
