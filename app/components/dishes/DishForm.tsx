@@ -237,7 +237,7 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
       <div className="flex gap-2 items-center">
         <label
           htmlFor="dish-image"
-          className="flex-1 cursor-pointer border border-gray-300 rounded-lg px-4 py-3 text-gray-600 hover:bg-gray-50 transition text-center"
+          className="flex-1 min-w-0 overflow-hidden cursor-pointer border border-gray-300 rounded-lg px-4 py-3 text-gray-600 hover:bg-gray-50 transition text-center"
         >
           {imageFile ? imageFile.name : "Choose Image"}
         </label>
