@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const { name, description, image, categories, recipeUrl } = body;
+  const { name, description, ingredients, image, categories, recipeUrl } = body;
 
   if (!name || !description || !Array.isArray(categories)) {
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
@@ -25,6 +25,7 @@ export async function POST(req: Request) {
       name,
       slug,
       description,
+      ingredients,
       image,
       recipeUrl,
       categories: {

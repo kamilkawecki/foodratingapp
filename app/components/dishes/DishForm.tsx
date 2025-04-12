@@ -9,7 +9,8 @@ import { Category } from "@/lib/generated/prisma";
 
 export type DishFormType = {
   name: string;
-  description: string;
+  description?: string;
+  ingredients?: string;
   image?: string;
   recipeUrl?: string;
   categories: string[];
@@ -28,6 +29,7 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
   const [form, setForm] = useState<DishFormType>({
     name: dish?.name || "",
     description: dish?.description || "",
+    ingredients: dish?.ingredients || "",
     recipeUrl: dish?.recipeUrl || "",
     image: dish?.image || "",
     categories: dish?.categories.map((c) => c.name) || [],
@@ -176,10 +178,19 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
       </div>
 
       <textarea
+        name="ingredients"
+        value={form.ingredients}
+        onChange={handleChange}
+        placeholder="Ingredients (optional)"
+        className="w-full border border-gray-300 rounded-lg p-3 h-32"
+        required
+      />
+
+      <textarea
         name="description"
         value={form.description}
         onChange={handleChange}
-        placeholder="Description"
+        placeholder="Description (optional)"
         className="w-full border border-gray-300 rounded-lg p-3 h-32"
         required
       />

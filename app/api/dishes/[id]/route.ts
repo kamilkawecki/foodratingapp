@@ -9,7 +9,8 @@ export async function PUT(
   props: { params: Promise<{ id: string }> }
 ) {
   const params = await props.params;
-  const { name, description, image, recipeUrl, categories } = await req.json();
+  const { name, description, ingredients, image, recipeUrl, categories } =
+    await req.json();
 
   const baseSlug = slugify(name);
   let slug = baseSlug;
@@ -31,6 +32,7 @@ export async function PUT(
     data: {
       name,
       description,
+      ingredients,
       image,
       recipeUrl,
       categories: {

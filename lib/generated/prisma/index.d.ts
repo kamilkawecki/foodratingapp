@@ -23,6 +23,11 @@ export type Dish = $Result.DefaultSelection<Prisma.$DishPayload>
  * 
  */
 export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
+/**
+ * Model profiles
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type profiles = $Result.DefaultSelection<Prisma.$profilesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.profiles`: Exposes CRUD operations for the **profiles** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Profiles
+    * const profiles = await prisma.profiles.findMany()
+    * ```
+    */
+  get profiles(): Prisma.profilesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +624,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Dish: 'Dish',
-    Category: 'Category'
+    Category: 'Category',
+    profiles: 'profiles'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "dish" | "category"
+      modelProps: "dish" | "category" | "profiles"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -780,6 +796,80 @@ export namespace Prisma {
           }
         }
       }
+      profiles: {
+        payload: Prisma.$profilesPayload<ExtArgs>
+        fields: Prisma.profilesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.profilesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.profilesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>
+          }
+          findFirst: {
+            args: Prisma.profilesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.profilesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>
+          }
+          findMany: {
+            args: Prisma.profilesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>[]
+          }
+          create: {
+            args: Prisma.profilesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>
+          }
+          createMany: {
+            args: Prisma.profilesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.profilesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>[]
+          }
+          delete: {
+            args: Prisma.profilesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>
+          }
+          update: {
+            args: Prisma.profilesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>
+          }
+          deleteMany: {
+            args: Prisma.profilesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.profilesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.profilesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>[]
+          }
+          upsert: {
+            args: Prisma.profilesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$profilesPayload>
+          }
+          aggregate: {
+            args: Prisma.ProfilesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProfiles>
+          }
+          groupBy: {
+            args: Prisma.profilesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProfilesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.profilesCountArgs<ExtArgs>
+            result: $Utils.Optional<ProfilesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -866,6 +956,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     dish?: DishOmit
     category?: CategoryOmit
+    profiles?: profilesOmit
   }
 
   /* Types for Logging */
@@ -1033,64 +1124,70 @@ export namespace Prisma {
 
   export type DishMinAggregateOutputType = {
     id: string | null
-    slug: string | null
     name: string | null
-    recipeUrl: string | null
     description: string | null
+    ingredients: string | null
     image: string | null
     createdAt: Date | null
+    recipeUrl: string | null
+    slug: string | null
   }
 
   export type DishMaxAggregateOutputType = {
     id: string | null
-    slug: string | null
     name: string | null
-    recipeUrl: string | null
     description: string | null
+    ingredients: string | null
     image: string | null
     createdAt: Date | null
+    recipeUrl: string | null
+    slug: string | null
   }
 
   export type DishCountAggregateOutputType = {
     id: number
-    slug: number
     name: number
-    recipeUrl: number
     description: number
+    ingredients: number
     image: number
     createdAt: number
+    recipeUrl: number
+    slug: number
     _all: number
   }
 
 
   export type DishMinAggregateInputType = {
     id?: true
-    slug?: true
     name?: true
-    recipeUrl?: true
     description?: true
+    ingredients?: true
     image?: true
     createdAt?: true
+    recipeUrl?: true
+    slug?: true
   }
 
   export type DishMaxAggregateInputType = {
     id?: true
-    slug?: true
     name?: true
-    recipeUrl?: true
     description?: true
+    ingredients?: true
     image?: true
     createdAt?: true
+    recipeUrl?: true
+    slug?: true
   }
 
   export type DishCountAggregateInputType = {
     id?: true
-    slug?: true
     name?: true
-    recipeUrl?: true
     description?: true
+    ingredients?: true
     image?: true
     createdAt?: true
+    recipeUrl?: true
+    slug?: true
     _all?: true
   }
 
@@ -1168,12 +1265,13 @@ export namespace Prisma {
 
   export type DishGroupByOutputType = {
     id: string
-    slug: string
     name: string
-    recipeUrl: string | null
-    description: string
+    description: string | null
+    ingredients: string | null
     image: string | null
     createdAt: Date
+    recipeUrl: string | null
+    slug: string
     _count: DishCountAggregateOutputType | null
     _min: DishMinAggregateOutputType | null
     _max: DishMaxAggregateOutputType | null
@@ -1195,47 +1293,51 @@ export namespace Prisma {
 
   export type DishSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    slug?: boolean
     name?: boolean
-    recipeUrl?: boolean
     description?: boolean
+    ingredients?: boolean
     image?: boolean
     createdAt?: boolean
+    recipeUrl?: boolean
+    slug?: boolean
     categories?: boolean | Dish$categoriesArgs<ExtArgs>
     _count?: boolean | DishCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["dish"]>
 
   export type DishSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    slug?: boolean
     name?: boolean
-    recipeUrl?: boolean
     description?: boolean
+    ingredients?: boolean
     image?: boolean
     createdAt?: boolean
+    recipeUrl?: boolean
+    slug?: boolean
   }, ExtArgs["result"]["dish"]>
 
   export type DishSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    slug?: boolean
     name?: boolean
-    recipeUrl?: boolean
     description?: boolean
+    ingredients?: boolean
     image?: boolean
     createdAt?: boolean
+    recipeUrl?: boolean
+    slug?: boolean
   }, ExtArgs["result"]["dish"]>
 
   export type DishSelectScalar = {
     id?: boolean
-    slug?: boolean
     name?: boolean
-    recipeUrl?: boolean
     description?: boolean
+    ingredients?: boolean
     image?: boolean
     createdAt?: boolean
+    recipeUrl?: boolean
+    slug?: boolean
   }
 
-  export type DishOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "name" | "recipeUrl" | "description" | "image" | "createdAt", ExtArgs["result"]["dish"]>
+  export type DishOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "ingredients" | "image" | "createdAt" | "recipeUrl" | "slug", ExtArgs["result"]["dish"]>
   export type DishInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categories?: boolean | Dish$categoriesArgs<ExtArgs>
     _count?: boolean | DishCountOutputTypeDefaultArgs<ExtArgs>
@@ -1250,12 +1352,13 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      slug: string
       name: string
-      recipeUrl: string | null
-      description: string
+      description: string | null
+      ingredients: string | null
       image: string | null
       createdAt: Date
+      recipeUrl: string | null
+      slug: string
     }, ExtArgs["result"]["dish"]>
     composites: {}
   }
@@ -1681,12 +1784,13 @@ export namespace Prisma {
    */
   interface DishFieldRefs {
     readonly id: FieldRef<"Dish", 'String'>
-    readonly slug: FieldRef<"Dish", 'String'>
     readonly name: FieldRef<"Dish", 'String'>
-    readonly recipeUrl: FieldRef<"Dish", 'String'>
     readonly description: FieldRef<"Dish", 'String'>
+    readonly ingredients: FieldRef<"Dish", 'String'>
     readonly image: FieldRef<"Dish", 'String'>
     readonly createdAt: FieldRef<"Dish", 'DateTime'>
+    readonly recipeUrl: FieldRef<"Dish", 'String'>
+    readonly slug: FieldRef<"Dish", 'String'>
   }
     
 
@@ -3149,6 +3253,975 @@ export namespace Prisma {
 
 
   /**
+   * Model profiles
+   */
+
+  export type AggregateProfiles = {
+    _count: ProfilesCountAggregateOutputType | null
+    _min: ProfilesMinAggregateOutputType | null
+    _max: ProfilesMaxAggregateOutputType | null
+  }
+
+  export type ProfilesMinAggregateOutputType = {
+    id: string | null
+    display_name: string | null
+    created_at: Date | null
+  }
+
+  export type ProfilesMaxAggregateOutputType = {
+    id: string | null
+    display_name: string | null
+    created_at: Date | null
+  }
+
+  export type ProfilesCountAggregateOutputType = {
+    id: number
+    display_name: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type ProfilesMinAggregateInputType = {
+    id?: true
+    display_name?: true
+    created_at?: true
+  }
+
+  export type ProfilesMaxAggregateInputType = {
+    id?: true
+    display_name?: true
+    created_at?: true
+  }
+
+  export type ProfilesCountAggregateInputType = {
+    id?: true
+    display_name?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type ProfilesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which profiles to aggregate.
+     */
+    where?: profilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of profiles to fetch.
+     */
+    orderBy?: profilesOrderByWithRelationInput | profilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: profilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` profiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` profiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned profiles
+    **/
+    _count?: true | ProfilesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProfilesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProfilesMaxAggregateInputType
+  }
+
+  export type GetProfilesAggregateType<T extends ProfilesAggregateArgs> = {
+        [P in keyof T & keyof AggregateProfiles]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProfiles[P]>
+      : GetScalarType<T[P], AggregateProfiles[P]>
+  }
+
+
+
+
+  export type profilesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: profilesWhereInput
+    orderBy?: profilesOrderByWithAggregationInput | profilesOrderByWithAggregationInput[]
+    by: ProfilesScalarFieldEnum[] | ProfilesScalarFieldEnum
+    having?: profilesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProfilesCountAggregateInputType | true
+    _min?: ProfilesMinAggregateInputType
+    _max?: ProfilesMaxAggregateInputType
+  }
+
+  export type ProfilesGroupByOutputType = {
+    id: string
+    display_name: string | null
+    created_at: Date
+    _count: ProfilesCountAggregateOutputType | null
+    _min: ProfilesMinAggregateOutputType | null
+    _max: ProfilesMaxAggregateOutputType | null
+  }
+
+  type GetProfilesGroupByPayload<T extends profilesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProfilesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProfilesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProfilesGroupByOutputType[P]>
+            : GetScalarType<T[P], ProfilesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type profilesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    display_name?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["profiles"]>
+
+  export type profilesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    display_name?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["profiles"]>
+
+  export type profilesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    display_name?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["profiles"]>
+
+  export type profilesSelectScalar = {
+    id?: boolean
+    display_name?: boolean
+    created_at?: boolean
+  }
+
+  export type profilesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "display_name" | "created_at", ExtArgs["result"]["profiles"]>
+
+  export type $profilesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "profiles"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      display_name: string | null
+      created_at: Date
+    }, ExtArgs["result"]["profiles"]>
+    composites: {}
+  }
+
+  type profilesGetPayload<S extends boolean | null | undefined | profilesDefaultArgs> = $Result.GetResult<Prisma.$profilesPayload, S>
+
+  type profilesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<profilesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProfilesCountAggregateInputType | true
+    }
+
+  export interface profilesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['profiles'], meta: { name: 'profiles' } }
+    /**
+     * Find zero or one Profiles that matches the filter.
+     * @param {profilesFindUniqueArgs} args - Arguments to find a Profiles
+     * @example
+     * // Get one Profiles
+     * const profiles = await prisma.profiles.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends profilesFindUniqueArgs>(args: SelectSubset<T, profilesFindUniqueArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Profiles that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {profilesFindUniqueOrThrowArgs} args - Arguments to find a Profiles
+     * @example
+     * // Get one Profiles
+     * const profiles = await prisma.profiles.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends profilesFindUniqueOrThrowArgs>(args: SelectSubset<T, profilesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Profiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {profilesFindFirstArgs} args - Arguments to find a Profiles
+     * @example
+     * // Get one Profiles
+     * const profiles = await prisma.profiles.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends profilesFindFirstArgs>(args?: SelectSubset<T, profilesFindFirstArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Profiles that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {profilesFindFirstOrThrowArgs} args - Arguments to find a Profiles
+     * @example
+     * // Get one Profiles
+     * const profiles = await prisma.profiles.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends profilesFindFirstOrThrowArgs>(args?: SelectSubset<T, profilesFindFirstOrThrowArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Profiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {profilesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Profiles
+     * const profiles = await prisma.profiles.findMany()
+     * 
+     * // Get first 10 Profiles
+     * const profiles = await prisma.profiles.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const profilesWithIdOnly = await prisma.profiles.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends profilesFindManyArgs>(args?: SelectSubset<T, profilesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Profiles.
+     * @param {profilesCreateArgs} args - Arguments to create a Profiles.
+     * @example
+     * // Create one Profiles
+     * const Profiles = await prisma.profiles.create({
+     *   data: {
+     *     // ... data to create a Profiles
+     *   }
+     * })
+     * 
+     */
+    create<T extends profilesCreateArgs>(args: SelectSubset<T, profilesCreateArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Profiles.
+     * @param {profilesCreateManyArgs} args - Arguments to create many Profiles.
+     * @example
+     * // Create many Profiles
+     * const profiles = await prisma.profiles.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends profilesCreateManyArgs>(args?: SelectSubset<T, profilesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Profiles and returns the data saved in the database.
+     * @param {profilesCreateManyAndReturnArgs} args - Arguments to create many Profiles.
+     * @example
+     * // Create many Profiles
+     * const profiles = await prisma.profiles.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Profiles and only return the `id`
+     * const profilesWithIdOnly = await prisma.profiles.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends profilesCreateManyAndReturnArgs>(args?: SelectSubset<T, profilesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Profiles.
+     * @param {profilesDeleteArgs} args - Arguments to delete one Profiles.
+     * @example
+     * // Delete one Profiles
+     * const Profiles = await prisma.profiles.delete({
+     *   where: {
+     *     // ... filter to delete one Profiles
+     *   }
+     * })
+     * 
+     */
+    delete<T extends profilesDeleteArgs>(args: SelectSubset<T, profilesDeleteArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Profiles.
+     * @param {profilesUpdateArgs} args - Arguments to update one Profiles.
+     * @example
+     * // Update one Profiles
+     * const profiles = await prisma.profiles.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends profilesUpdateArgs>(args: SelectSubset<T, profilesUpdateArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Profiles.
+     * @param {profilesDeleteManyArgs} args - Arguments to filter Profiles to delete.
+     * @example
+     * // Delete a few Profiles
+     * const { count } = await prisma.profiles.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends profilesDeleteManyArgs>(args?: SelectSubset<T, profilesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Profiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {profilesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Profiles
+     * const profiles = await prisma.profiles.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends profilesUpdateManyArgs>(args: SelectSubset<T, profilesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Profiles and returns the data updated in the database.
+     * @param {profilesUpdateManyAndReturnArgs} args - Arguments to update many Profiles.
+     * @example
+     * // Update many Profiles
+     * const profiles = await prisma.profiles.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Profiles and only return the `id`
+     * const profilesWithIdOnly = await prisma.profiles.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends profilesUpdateManyAndReturnArgs>(args: SelectSubset<T, profilesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Profiles.
+     * @param {profilesUpsertArgs} args - Arguments to update or create a Profiles.
+     * @example
+     * // Update or create a Profiles
+     * const profiles = await prisma.profiles.upsert({
+     *   create: {
+     *     // ... data to create a Profiles
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Profiles we want to update
+     *   }
+     * })
+     */
+    upsert<T extends profilesUpsertArgs>(args: SelectSubset<T, profilesUpsertArgs<ExtArgs>>): Prisma__profilesClient<$Result.GetResult<Prisma.$profilesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Profiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {profilesCountArgs} args - Arguments to filter Profiles to count.
+     * @example
+     * // Count the number of Profiles
+     * const count = await prisma.profiles.count({
+     *   where: {
+     *     // ... the filter for the Profiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends profilesCountArgs>(
+      args?: Subset<T, profilesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProfilesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Profiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfilesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProfilesAggregateArgs>(args: Subset<T, ProfilesAggregateArgs>): Prisma.PrismaPromise<GetProfilesAggregateType<T>>
+
+    /**
+     * Group by Profiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {profilesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends profilesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: profilesGroupByArgs['orderBy'] }
+        : { orderBy?: profilesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, profilesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProfilesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the profiles model
+   */
+  readonly fields: profilesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for profiles.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__profilesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the profiles model
+   */
+  interface profilesFieldRefs {
+    readonly id: FieldRef<"profiles", 'String'>
+    readonly display_name: FieldRef<"profiles", 'String'>
+    readonly created_at: FieldRef<"profiles", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * profiles findUnique
+   */
+  export type profilesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * Filter, which profiles to fetch.
+     */
+    where: profilesWhereUniqueInput
+  }
+
+  /**
+   * profiles findUniqueOrThrow
+   */
+  export type profilesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * Filter, which profiles to fetch.
+     */
+    where: profilesWhereUniqueInput
+  }
+
+  /**
+   * profiles findFirst
+   */
+  export type profilesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * Filter, which profiles to fetch.
+     */
+    where?: profilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of profiles to fetch.
+     */
+    orderBy?: profilesOrderByWithRelationInput | profilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for profiles.
+     */
+    cursor?: profilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` profiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` profiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of profiles.
+     */
+    distinct?: ProfilesScalarFieldEnum | ProfilesScalarFieldEnum[]
+  }
+
+  /**
+   * profiles findFirstOrThrow
+   */
+  export type profilesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * Filter, which profiles to fetch.
+     */
+    where?: profilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of profiles to fetch.
+     */
+    orderBy?: profilesOrderByWithRelationInput | profilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for profiles.
+     */
+    cursor?: profilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` profiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` profiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of profiles.
+     */
+    distinct?: ProfilesScalarFieldEnum | ProfilesScalarFieldEnum[]
+  }
+
+  /**
+   * profiles findMany
+   */
+  export type profilesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * Filter, which profiles to fetch.
+     */
+    where?: profilesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of profiles to fetch.
+     */
+    orderBy?: profilesOrderByWithRelationInput | profilesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing profiles.
+     */
+    cursor?: profilesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` profiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` profiles.
+     */
+    skip?: number
+    distinct?: ProfilesScalarFieldEnum | ProfilesScalarFieldEnum[]
+  }
+
+  /**
+   * profiles create
+   */
+  export type profilesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * The data needed to create a profiles.
+     */
+    data?: XOR<profilesCreateInput, profilesUncheckedCreateInput>
+  }
+
+  /**
+   * profiles createMany
+   */
+  export type profilesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many profiles.
+     */
+    data: profilesCreateManyInput | profilesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * profiles createManyAndReturn
+   */
+  export type profilesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * The data used to create many profiles.
+     */
+    data: profilesCreateManyInput | profilesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * profiles update
+   */
+  export type profilesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * The data needed to update a profiles.
+     */
+    data: XOR<profilesUpdateInput, profilesUncheckedUpdateInput>
+    /**
+     * Choose, which profiles to update.
+     */
+    where: profilesWhereUniqueInput
+  }
+
+  /**
+   * profiles updateMany
+   */
+  export type profilesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update profiles.
+     */
+    data: XOR<profilesUpdateManyMutationInput, profilesUncheckedUpdateManyInput>
+    /**
+     * Filter which profiles to update
+     */
+    where?: profilesWhereInput
+    /**
+     * Limit how many profiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * profiles updateManyAndReturn
+   */
+  export type profilesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * The data used to update profiles.
+     */
+    data: XOR<profilesUpdateManyMutationInput, profilesUncheckedUpdateManyInput>
+    /**
+     * Filter which profiles to update
+     */
+    where?: profilesWhereInput
+    /**
+     * Limit how many profiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * profiles upsert
+   */
+  export type profilesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * The filter to search for the profiles to update in case it exists.
+     */
+    where: profilesWhereUniqueInput
+    /**
+     * In case the profiles found by the `where` argument doesn't exist, create a new profiles with this data.
+     */
+    create: XOR<profilesCreateInput, profilesUncheckedCreateInput>
+    /**
+     * In case the profiles was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<profilesUpdateInput, profilesUncheckedUpdateInput>
+  }
+
+  /**
+   * profiles delete
+   */
+  export type profilesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+    /**
+     * Filter which profiles to delete.
+     */
+    where: profilesWhereUniqueInput
+  }
+
+  /**
+   * profiles deleteMany
+   */
+  export type profilesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which profiles to delete
+     */
+    where?: profilesWhereInput
+    /**
+     * Limit how many profiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * profiles without action
+   */
+  export type profilesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the profiles
+     */
+    select?: profilesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the profiles
+     */
+    omit?: profilesOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3164,12 +4237,13 @@ export namespace Prisma {
 
   export const DishScalarFieldEnum: {
     id: 'id',
-    slug: 'slug',
     name: 'name',
-    recipeUrl: 'recipeUrl',
     description: 'description',
+    ingredients: 'ingredients',
     image: 'image',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    recipeUrl: 'recipeUrl',
+    slug: 'slug'
   };
 
   export type DishScalarFieldEnum = (typeof DishScalarFieldEnum)[keyof typeof DishScalarFieldEnum]
@@ -3181,6 +4255,15 @@ export namespace Prisma {
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+  export const ProfilesScalarFieldEnum: {
+    id: 'id',
+    display_name: 'display_name',
+    created_at: 'created_at'
+  };
+
+  export type ProfilesScalarFieldEnum = (typeof ProfilesScalarFieldEnum)[keyof typeof ProfilesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3262,23 +4345,25 @@ export namespace Prisma {
     OR?: DishWhereInput[]
     NOT?: DishWhereInput | DishWhereInput[]
     id?: StringFilter<"Dish"> | string
-    slug?: StringFilter<"Dish"> | string
     name?: StringFilter<"Dish"> | string
-    recipeUrl?: StringNullableFilter<"Dish"> | string | null
-    description?: StringFilter<"Dish"> | string
+    description?: StringNullableFilter<"Dish"> | string | null
+    ingredients?: StringNullableFilter<"Dish"> | string | null
     image?: StringNullableFilter<"Dish"> | string | null
     createdAt?: DateTimeFilter<"Dish"> | Date | string
+    recipeUrl?: StringNullableFilter<"Dish"> | string | null
+    slug?: StringFilter<"Dish"> | string
     categories?: CategoryListRelationFilter
   }
 
   export type DishOrderByWithRelationInput = {
     id?: SortOrder
-    slug?: SortOrder
     name?: SortOrder
-    recipeUrl?: SortOrderInput | SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
+    ingredients?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    recipeUrl?: SortOrderInput | SortOrder
+    slug?: SortOrder
     categories?: CategoryOrderByRelationAggregateInput
   }
 
@@ -3289,21 +4374,23 @@ export namespace Prisma {
     OR?: DishWhereInput[]
     NOT?: DishWhereInput | DishWhereInput[]
     name?: StringFilter<"Dish"> | string
-    recipeUrl?: StringNullableFilter<"Dish"> | string | null
-    description?: StringFilter<"Dish"> | string
+    description?: StringNullableFilter<"Dish"> | string | null
+    ingredients?: StringNullableFilter<"Dish"> | string | null
     image?: StringNullableFilter<"Dish"> | string | null
     createdAt?: DateTimeFilter<"Dish"> | Date | string
+    recipeUrl?: StringNullableFilter<"Dish"> | string | null
     categories?: CategoryListRelationFilter
   }, "id" | "slug">
 
   export type DishOrderByWithAggregationInput = {
     id?: SortOrder
-    slug?: SortOrder
     name?: SortOrder
-    recipeUrl?: SortOrderInput | SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
+    ingredients?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    recipeUrl?: SortOrderInput | SortOrder
+    slug?: SortOrder
     _count?: DishCountOrderByAggregateInput
     _max?: DishMaxOrderByAggregateInput
     _min?: DishMinOrderByAggregateInput
@@ -3314,12 +4401,13 @@ export namespace Prisma {
     OR?: DishScalarWhereWithAggregatesInput[]
     NOT?: DishScalarWhereWithAggregatesInput | DishScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Dish"> | string
-    slug?: StringWithAggregatesFilter<"Dish"> | string
     name?: StringWithAggregatesFilter<"Dish"> | string
-    recipeUrl?: StringNullableWithAggregatesFilter<"Dish"> | string | null
-    description?: StringWithAggregatesFilter<"Dish"> | string
+    description?: StringNullableWithAggregatesFilter<"Dish"> | string | null
+    ingredients?: StringNullableWithAggregatesFilter<"Dish"> | string | null
     image?: StringNullableWithAggregatesFilter<"Dish"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Dish"> | Date | string
+    recipeUrl?: StringNullableWithAggregatesFilter<"Dish"> | string | null
+    slug?: StringWithAggregatesFilter<"Dish"> | string
   }
 
   export type CategoryWhereInput = {
@@ -3362,78 +4450,127 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Category"> | string
   }
 
+  export type profilesWhereInput = {
+    AND?: profilesWhereInput | profilesWhereInput[]
+    OR?: profilesWhereInput[]
+    NOT?: profilesWhereInput | profilesWhereInput[]
+    id?: UuidFilter<"profiles"> | string
+    display_name?: StringNullableFilter<"profiles"> | string | null
+    created_at?: DateTimeFilter<"profiles"> | Date | string
+  }
+
+  export type profilesOrderByWithRelationInput = {
+    id?: SortOrder
+    display_name?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+  }
+
+  export type profilesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    display_name?: string
+    AND?: profilesWhereInput | profilesWhereInput[]
+    OR?: profilesWhereInput[]
+    NOT?: profilesWhereInput | profilesWhereInput[]
+    created_at?: DateTimeFilter<"profiles"> | Date | string
+  }, "id" | "display_name">
+
+  export type profilesOrderByWithAggregationInput = {
+    id?: SortOrder
+    display_name?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: profilesCountOrderByAggregateInput
+    _max?: profilesMaxOrderByAggregateInput
+    _min?: profilesMinOrderByAggregateInput
+  }
+
+  export type profilesScalarWhereWithAggregatesInput = {
+    AND?: profilesScalarWhereWithAggregatesInput | profilesScalarWhereWithAggregatesInput[]
+    OR?: profilesScalarWhereWithAggregatesInput[]
+    NOT?: profilesScalarWhereWithAggregatesInput | profilesScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"profiles"> | string
+    display_name?: StringNullableWithAggregatesFilter<"profiles"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"profiles"> | Date | string
+  }
+
   export type DishCreateInput = {
     id?: string
-    slug: string
     name: string
-    recipeUrl?: string | null
-    description: string
+    description?: string | null
+    ingredients?: string | null
     image?: string | null
     createdAt?: Date | string
+    recipeUrl?: string | null
+    slug: string
     categories?: CategoryCreateNestedManyWithoutDishesInput
   }
 
   export type DishUncheckedCreateInput = {
     id?: string
-    slug: string
     name: string
-    recipeUrl?: string | null
-    description: string
+    description?: string | null
+    ingredients?: string | null
     image?: string | null
     createdAt?: Date | string
+    recipeUrl?: string | null
+    slug: string
     categories?: CategoryUncheckedCreateNestedManyWithoutDishesInput
   }
 
   export type DishUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ingredients?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     categories?: CategoryUpdateManyWithoutDishesNestedInput
   }
 
   export type DishUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ingredients?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     categories?: CategoryUncheckedUpdateManyWithoutDishesNestedInput
   }
 
   export type DishCreateManyInput = {
     id?: string
-    slug: string
     name: string
-    recipeUrl?: string | null
-    description: string
+    description?: string | null
+    ingredients?: string | null
     image?: string | null
     createdAt?: Date | string
+    recipeUrl?: string | null
+    slug: string
   }
 
   export type DishUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ingredients?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type DishUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ingredients?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type CategoryCreateInput = {
@@ -3473,6 +4610,48 @@ export namespace Prisma {
   export type CategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type profilesCreateInput = {
+    id?: string
+    display_name?: string | null
+    created_at?: Date | string
+  }
+
+  export type profilesUncheckedCreateInput = {
+    id?: string
+    display_name?: string | null
+    created_at?: Date | string
+  }
+
+  export type profilesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type profilesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type profilesCreateManyInput = {
+    id?: string
+    display_name?: string | null
+    created_at?: Date | string
+  }
+
+  export type profilesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type profilesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3533,32 +4712,35 @@ export namespace Prisma {
 
   export type DishCountOrderByAggregateInput = {
     id?: SortOrder
-    slug?: SortOrder
     name?: SortOrder
-    recipeUrl?: SortOrder
     description?: SortOrder
+    ingredients?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
+    recipeUrl?: SortOrder
+    slug?: SortOrder
   }
 
   export type DishMaxOrderByAggregateInput = {
     id?: SortOrder
-    slug?: SortOrder
     name?: SortOrder
-    recipeUrl?: SortOrder
     description?: SortOrder
+    ingredients?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
+    recipeUrl?: SortOrder
+    slug?: SortOrder
   }
 
   export type DishMinOrderByAggregateInput = {
     id?: SortOrder
-    slug?: SortOrder
     name?: SortOrder
-    recipeUrl?: SortOrder
     description?: SortOrder
+    ingredients?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
+    recipeUrl?: SortOrder
+    slug?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3634,6 +4816,51 @@ export namespace Prisma {
   export type CategoryMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+  }
+
+  export type UuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidFilter<$PrismaModel> | string
+  }
+
+  export type profilesCountOrderByAggregateInput = {
+    id?: SortOrder
+    display_name?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type profilesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    display_name?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type profilesMinOrderByAggregateInput = {
+    id?: SortOrder
+    display_name?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type UuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type CategoryCreateNestedManyWithoutDishesInput = {
@@ -3833,6 +5060,31 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedUuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidFilter<$PrismaModel> | string
+  }
+
+  export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
   export type CategoryCreateWithoutDishesInput = {
     id?: string
     name: string
@@ -3874,22 +5126,24 @@ export namespace Prisma {
 
   export type DishCreateWithoutCategoriesInput = {
     id?: string
-    slug: string
     name: string
-    recipeUrl?: string | null
-    description: string
+    description?: string | null
+    ingredients?: string | null
     image?: string | null
     createdAt?: Date | string
+    recipeUrl?: string | null
+    slug: string
   }
 
   export type DishUncheckedCreateWithoutCategoriesInput = {
     id?: string
-    slug: string
     name: string
-    recipeUrl?: string | null
-    description: string
+    description?: string | null
+    ingredients?: string | null
     image?: string | null
     createdAt?: Date | string
+    recipeUrl?: string | null
+    slug: string
   }
 
   export type DishCreateOrConnectWithoutCategoriesInput = {
@@ -3918,12 +5172,13 @@ export namespace Prisma {
     OR?: DishScalarWhereInput[]
     NOT?: DishScalarWhereInput | DishScalarWhereInput[]
     id?: StringFilter<"Dish"> | string
-    slug?: StringFilter<"Dish"> | string
     name?: StringFilter<"Dish"> | string
-    recipeUrl?: StringNullableFilter<"Dish"> | string | null
-    description?: StringFilter<"Dish"> | string
+    description?: StringNullableFilter<"Dish"> | string | null
+    ingredients?: StringNullableFilter<"Dish"> | string | null
     image?: StringNullableFilter<"Dish"> | string | null
     createdAt?: DateTimeFilter<"Dish"> | Date | string
+    recipeUrl?: StringNullableFilter<"Dish"> | string | null
+    slug?: StringFilter<"Dish"> | string
   }
 
   export type CategoryUpdateWithoutDishesInput = {
@@ -3943,32 +5198,35 @@ export namespace Prisma {
 
   export type DishUpdateWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ingredients?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type DishUncheckedUpdateWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ingredients?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type DishUncheckedUpdateManyWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ingredients?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recipeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
 
