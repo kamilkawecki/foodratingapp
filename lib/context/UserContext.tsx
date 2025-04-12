@@ -7,7 +7,8 @@ import type { User } from "@supabase/supabase-js";
 type UserContextType = {
   user: User | null | undefined;
   displayName: string | null | undefined;
-  setDisplayName: (name: string) => void;
+  loading: boolean;
+  refresh: () => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -18,27 +19,34 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [displayName, setDisplayName] = useState<string | null | undefined>(
     undefined
   );
+  const [loading, setLoading] = useState(true);
+
+  const refresh = async () => {
+    setLoading(true);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    setUser(user);
+
+    if (user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("display_name")
+        .eq("id", user.id)
+        .single();
+
+      setDisplayName(profile?.display_name ?? null);
+    } else {
+      setDisplayName(null);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    // Initial session fetch
-    supabase.auth.getSession().then(async ({ data }) => {
-      const sessionUser = data.session?.user ?? null;
-      setUser(sessionUser);
+    refresh(); // handles both initial session and display name
 
-      if (sessionUser) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("display_name")
-          .eq("id", sessionUser.id)
-          .single();
-
-        setDisplayName(profile?.display_name ?? null);
-      } else {
-        setDisplayName(null);
-      }
-    });
-
-    // Listen to auth changes
+    // Listen to auth state changes (login/logout)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (_event, session) => {
@@ -66,7 +74,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <UserContext.Provider value={{ user, displayName, setDisplayName, logout }}>
+    <UserContext.Provider
+      value={{ user, displayName, loading, refresh, logout }}
+    >
       {children}
     </UserContext.Provider>
   );

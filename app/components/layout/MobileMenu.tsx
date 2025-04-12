@@ -58,10 +58,10 @@ export default function MobileMenu({ navLinks }: { navLinks: NavLink[] }) {
                 ))}
 
               <Link
-                href="/login"
+                href="/account"
                 onClick={() => setMenuOpen(false)}
                 className={`transition ${
-                  isActive("/login")
+                  isActive("/account")
                     ? "text-accent font-semibold"
                     : "hover:text-accent"
                 }`}

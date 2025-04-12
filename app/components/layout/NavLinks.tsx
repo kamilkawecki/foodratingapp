@@ -33,9 +33,11 @@ export default function NavLinks({ navLinks }: { navLinks: NavLink[] }) {
         ))}
 
       <Link
-        href="/login"
+        href="/account"
         className={`transition ${
-          isActive("/login") ? "text-accent font-semibold" : "hover:text-accent"
+          isActive("/account")
+            ? "text-accent font-semibold"
+            : "hover:text-accent"
         }`}
       >
         {getAuthLabel(displayName, user?.email)}
