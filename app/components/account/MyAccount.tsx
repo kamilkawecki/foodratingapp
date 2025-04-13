@@ -1,18 +1,17 @@
 "use client";
 
 import { useUser } from "@/lib/context/UserContext";
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 export default function MyAccount() {
   const { user, displayName, refresh, logout } = useUser();
-  const router = useRouter();
 
   const [name, setName] = useState("");
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (displayName != null) setName(displayName);
@@ -58,8 +57,10 @@ export default function MyAccount() {
   };
 
   const handleLogout = async () => {
+    setSubmitting(true);
     await logout();
-    router.refresh();
+    await refresh();
+    setSubmitting(false);
   };
 
   return (
@@ -90,8 +91,13 @@ export default function MyAccount() {
         {error && <p className="text-danger text-sm">{error}</p>}
       </form>
 
-      <button onClick={handleLogout} className="button">
-        Log out
+      <button
+        onClick={handleLogout}
+        disabled={submitting}
+        className="button"
+        type="button"
+      >
+        {submitting ? "Logging out..." : "Log out"}
       </button>
     </>
   );

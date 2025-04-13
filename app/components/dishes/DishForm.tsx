@@ -40,6 +40,8 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
+  const [addingCategory, setAddingCategory] = useState(false);
+  const [addingImage, setAddingImage] = useState(false);
 
   useEffect(() => {
     setCategories(allCategories.map((c) => c.name));
@@ -52,8 +54,14 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
   };
 
   const handleAddCategory = async () => {
+    setAddingCategory(true);
+
     const trimmed = newCategory.trim();
-    if (!trimmed || categories.includes(trimmed)) return;
+    if (!trimmed || categories.includes(trimmed)) {
+      setAddingCategory(false);
+      setError("Category name is empty or already existing");
+      return;
+    }
 
     const res = await fetch("/api/categories", {
       method: "POST",
@@ -68,40 +76,49 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
         categories: [...prev.categories, trimmed],
       }));
       setNewCategory("");
+      setError(null);
     } else {
       const data = await res.json();
       setError(data.error || "Failed to add category");
     }
+    setAddingCategory(false);
   };
 
   const handleImageUpload = async () => {
-    if (!imageFile) {
-      setError("Please select an image file first.");
-      return;
+    setAddingImage(true);
+
+    try {
+      if (!imageFile) {
+        setError("Please select an image file first.");
+        return;
+      }
+
+      if (form.image) {
+        setError("Image already uploaded.");
+        return;
+      }
+
+      const fileName = `${Date.now()}-${imageFile.name}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("dish-images")
+        .upload(fileName, imageFile);
+
+      if (uploadError) {
+        console.error("Image upload failed:", uploadError);
+        setError("Image upload failed.");
+        return;
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from("dish-images")
+        .getPublicUrl(fileName);
+
+      setForm((prev) => ({ ...prev, image: publicUrlData.publicUrl }));
+      setError(null);
+    } finally {
+      setAddingImage(false);
     }
-
-    if (form.image) {
-      setError("Image already uploaded.");
-      return;
-    }
-
-    const fileName = `${Date.now()}-${imageFile.name}`;
-
-    const { error } = await supabase.storage
-      .from("dish-images")
-      .upload(fileName, imageFile);
-
-    if (error) {
-      console.error("Image upload failed:", error);
-      setError("Image upload failed.");
-      return;
-    }
-
-    const { data: publicUrlData } = supabase.storage
-      .from("dish-images")
-      .getPublicUrl(fileName);
-
-    setForm((prev) => ({ ...prev, image: publicUrlData.publicUrl }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -171,8 +188,13 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
             placeholder="Add category"
             className="flex-1 border border-gray-300 rounded-lg p-2 min-w-0"
           />
-          <button type="button" onClick={handleAddCategory} className="button">
-            Add
+          <button
+            onClick={handleAddCategory}
+            disabled={addingCategory}
+            className="button"
+            type="button"
+          >
+            {addingCategory ? "Adding..." : "Add"}
           </button>
         </div>
       </div>
@@ -183,7 +205,6 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
         onChange={handleChange}
         placeholder="Ingredients (optional)"
         className="w-full border border-gray-300 rounded-lg p-3 h-32"
-        required
       />
 
       <textarea
@@ -192,7 +213,6 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
         onChange={handleChange}
         placeholder="Description (optional)"
         className="w-full border border-gray-300 rounded-lg p-3 h-32"
-        required
       />
 
       <input
@@ -252,14 +272,13 @@ export default function DishForm({ mode, dish, allCategories }: DishFormProps) {
           }}
           className="hidden"
         />
-
         <button
-          type="button"
-          disabled={!!form.image}
           onClick={handleImageUpload}
-          className="h-[48px] button"
+          disabled={!!form.image || addingImage}
+          className="button h-[48px]"
+          type="button"
         >
-          Upload
+          {addingImage ? "Uploading..." : "Upload"}
         </button>
       </div>
 

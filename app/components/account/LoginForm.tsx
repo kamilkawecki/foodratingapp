@@ -1,17 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { useUser } from "@/lib/context/UserContext";
 
 export default function LoginForm() {
-  const router = useRouter();
+  const { refresh } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setSubmitting(true);
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -21,8 +24,9 @@ export default function LoginForm() {
     if (error) {
       setError(error.message);
     } else {
-      router.refresh();
+      await refresh();
     }
+    setSubmitting(false);
   };
 
   return (
@@ -42,7 +46,9 @@ export default function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
       />
       {error && <p className="text-sm text-danger">{error}</p>}
-      <button className="button">Log In</button>
+      <button type="submit" disabled={submitting} className="button">
+        {submitting ? "Logging in..." : "Log In"}
+      </button>
     </form>
   );
 }
